@@ -1,0 +1,1458 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GBEHOLO Wilson — Cybersécurité, Réseaux &amp; Systèmes, Data Analytics</title>
+<meta name="description" content="Portfolio de GBEHOLO Wilson, diplômé en Sécurité des Systèmes et Réseaux Informatiques. Auteur de NetShield SDN, système de détection et d'isolation automatique des menaces réseau, validé sur une infrastructure réelle.">
+<meta name="keywords" content="GBEHOLO Wilson, Cybersécurité, Réseaux, Systèmes, Data Analytics, Cybersecurity, Bénin, NetShield SDN">
+<meta name="robots" content="index, follow">
+
+<meta property="og:type" content="website">
+<meta property="og:title" content="GBEHOLO Wilson — Cybersécurité, Réseaux &amp; Systèmes, Data Analytics">
+<meta property="og:description" content="Auteur de NetShield SDN — détection et isolation automatique des menaces réseau, validé sur une infrastructure réelle.">
+<meta property="og:locale" content="fr_FR">
+
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%230B0C0E'/%3E%3Ctext x='32' y='42' font-family='monospace' font-size='26' fill='%23C9A66B' text-anchor='middle'%3EGW%3C/text%3E%3C/svg%3E">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+
+<style>
+  :root{
+    --bg:#0B0C0E;
+    --bg-elevated:#111318;
+    --surface:#161920;
+    --surface-2:#1B1F27;
+    --border:rgba(237,235,230,0.09);
+    --border-strong:rgba(237,235,230,0.16);
+    --text:#EDEBE6;
+    --text-muted:#9A9CA3;
+    --text-faint:#5D5F68;
+    --accent:#C9A66B;
+    --accent-strong:#E4C48D;
+    --accent-soft:rgba(201,166,107,0.10);
+    --accent-line:rgba(201,166,107,0.35);
+    --font-display:'Space Grotesk', sans-serif;
+    --font-mono:'IBM Plex Mono', monospace;
+    --font-body:'Inter', sans-serif;
+    --container:1180px;
+    --ease:cubic-bezier(.16,.8,.24,1);
+  }
+
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  @media (prefers-reduced-motion: reduce){
+    html{scroll-behavior:auto;}
+    *{animation-duration:0.001ms !important; animation-iteration-count:1 !important; transition-duration:0.001ms !important; scroll-behavior:auto !important;}
+  }
+
+  body{
+    background:var(--bg);
+    color:var(--text);
+    font-family:var(--font-body);
+    font-size:16px;
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+  }
+
+  ::selection{background:var(--accent-soft); color:var(--accent-strong);}
+
+  a{color:inherit; text-decoration:none;}
+  ul{list-style:none;}
+
+  :focus-visible{
+    outline:1.5px solid var(--accent);
+    outline-offset:4px;
+    border-radius:2px;
+  }
+
+  img{max-width:100%; display:block;}
+
+  .wrap{
+    max-width:var(--container);
+    margin:0 auto;
+    padding:0 32px;
+  }
+
+  .eyebrow{
+    font-family:var(--font-mono);
+    font-size:12px;
+    letter-spacing:0.18em;
+    text-transform:uppercase;
+    color:var(--accent);
+    display:flex;
+    align-items:center;
+    gap:10px;
+  }
+  .eyebrow::before{
+    content:'';
+    width:18px; height:1px;
+    background:var(--accent-line);
+    display:inline-block;
+  }
+
+  h1,h2,h3,h4{
+    font-family:var(--font-display);
+    font-weight:600;
+    letter-spacing:-0.01em;
+    color:var(--text);
+  }
+
+  .section-title{
+    font-size:clamp(28px, 3.4vw, 42px);
+    margin-top:14px;
+    max-width:640px;
+  }
+
+  .section-head{
+    display:flex;
+    justify-content:space-between;
+    align-items:flex-end;
+    gap:24px;
+    margin-bottom:56px;
+  }
+
+  .section-num{
+    font-family:var(--font-mono);
+    font-size:12px;
+    color:var(--text-faint);
+    letter-spacing:0.1em;
+  }
+
+  section{
+    padding:120px 0;
+    border-top:1px solid var(--border);
+    position:relative;
+  }
+
+  /* ---------- NAV ---------- */
+  header{
+    position:fixed;
+    top:0; left:0; right:0;
+    z-index:1000;
+    padding:22px 32px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    background:rgba(11,12,14,0.72);
+    backdrop-filter:blur(14px);
+    -webkit-backdrop-filter:blur(14px);
+    border-bottom:1px solid transparent;
+    transition:border-color .3s var(--ease), background .3s var(--ease);
+  }
+  header.scrolled{
+    border-bottom-color:var(--border);
+  }
+  .logo{
+    font-family:var(--font-mono);
+    font-size:14px;
+    letter-spacing:0.06em;
+    display:flex;
+    align-items:center;
+    gap:8px;
+  }
+  .logo .dot{
+    width:6px; height:6px; border-radius:50%;
+    background:var(--accent);
+    box-shadow:0 0 0 3px var(--accent-soft);
+  }
+
+  nav.desktop-nav{
+    display:flex;
+    gap:8px;
+  }
+  nav.desktop-nav a{
+    font-family:var(--font-mono);
+    font-size:12px;
+    letter-spacing:0.06em;
+    color:var(--text-muted);
+    padding:8px 14px;
+    border-radius:20px;
+    transition:color .25s var(--ease), background .25s var(--ease);
+    white-space:nowrap;
+  }
+  nav.desktop-nav a:hover, nav.desktop-nav a.active{
+    color:var(--text);
+    background:var(--surface);
+  }
+  nav.desktop-nav a.active{ color:var(--accent); }
+
+  .nav-cta{
+    font-family:var(--font-mono);
+    font-size:12px;
+    letter-spacing:0.06em;
+    color:var(--bg);
+    background:var(--accent);
+    padding:10px 18px;
+    border-radius:20px;
+    transition:background .25s var(--ease), transform .25s var(--ease);
+  }
+  .nav-cta:hover{ background:var(--accent-strong); transform:translateY(-1px); }
+
+  .burger{
+    display:none;
+    width:36px; height:36px;
+    border:1px solid var(--border-strong);
+    border-radius:8px;
+    align-items:center;
+    justify-content:center;
+    background:transparent;
+    cursor:pointer;
+    color:var(--text);
+    flex-direction:column;
+    gap:4px;
+  }
+  .burger span{
+    width:16px; height:1px; background:var(--text); display:block;
+    transition:transform .25s var(--ease), opacity .25s var(--ease);
+  }
+  .burger.open span:nth-child(1){ transform:translateY(5px) rotate(45deg); }
+  .burger.open span:nth-child(2){ opacity:0; }
+  .burger.open span:nth-child(3){ transform:translateY(-5px) rotate(-45deg); }
+
+  .mobile-menu{
+    position:fixed;
+    inset:0;
+    background:rgba(9,10,12,0.98);
+    backdrop-filter:blur(20px);
+    z-index:999;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    padding:32px;
+    transform:translateY(-8px);
+    opacity:0;
+    pointer-events:none;
+    transition:opacity .3s var(--ease), transform .3s var(--ease);
+  }
+  .mobile-menu.open{ opacity:1; pointer-events:auto; transform:translateY(0); }
+  .mobile-menu a{
+    font-family:var(--font-mono);
+    font-size:20px;
+    color:var(--text-muted);
+    padding:14px 0;
+    border-bottom:1px solid var(--border);
+    display:flex; justify-content:space-between; align-items:center;
+  }
+  .mobile-menu a span{ color:var(--text-faint); font-size:13px;}
+  .mobile-menu a:hover{ color:var(--accent); }
+
+  /* ---------- HERO ---------- */
+  .hero{
+    min-height:100svh;
+    display:flex;
+    align-items:center;
+    padding-top:140px;
+    padding-bottom:80px;
+    border-top:none;
+    position:relative;
+    overflow:hidden;
+  }
+  .hero-grid{
+    position:absolute; inset:0;
+    background-image:
+      linear-gradient(var(--border) 1px, transparent 1px),
+      linear-gradient(90deg, var(--border) 1px, transparent 1px);
+    background-size:64px 64px;
+    mask-image:radial-gradient(ellipse 70% 60% at 50% 20%, black 10%, transparent 75%);
+    opacity:0.5;
+    pointer-events:none;
+  }
+  .hero-glow{
+    position:absolute;
+    top:-20%; right:-10%;
+    width:60vw; height:60vw;
+    background:radial-gradient(circle, rgba(201,166,107,0.09) 0%, transparent 65%);
+    pointer-events:none;
+  }
+  .hero-inner{ position:relative; z-index:2; width:100%; }
+
+  .hero-eyebrow{
+    font-family:var(--font-mono);
+    font-size:12px;
+    letter-spacing:0.2em;
+    color:var(--accent);
+    text-transform:uppercase;
+    opacity:0;
+    animation:riseIn .8s var(--ease) .1s forwards;
+  }
+
+  .hero h1{
+    font-size:clamp(48px, 9vw, 108px);
+    line-height:0.98;
+    letter-spacing:-0.02em;
+    margin-top:20px;
+    opacity:0;
+    animation:riseIn .9s var(--ease) .25s forwards;
+  }
+  .hero h1 .accent{ color:var(--accent); }
+
+  .hero-role{
+    font-family:var(--font-mono);
+    font-size:clamp(13px,1.6vw,16px);
+    letter-spacing:0.05em;
+    color:var(--text-muted);
+    margin-top:22px;
+    display:flex;
+    flex-wrap:wrap;
+    gap:6px 14px;
+    opacity:0;
+    animation:riseIn .9s var(--ease) .4s forwards;
+  }
+  .hero-role b{ color:var(--text); font-weight:500; }
+  .hero-role .sep{ color:var(--text-faint); }
+
+  .hero-statement{
+    font-family:var(--font-display);
+    font-size:clamp(19px, 2.3vw, 27px);
+    font-weight:500;
+    color:var(--text);
+    max-width:680px;
+    margin-top:40px;
+    line-height:1.4;
+    opacity:0;
+    animation:riseIn .9s var(--ease) .55s forwards;
+  }
+
+  .hero-ctas{
+    display:flex;
+    flex-wrap:wrap;
+    gap:14px;
+    margin-top:48px;
+    opacity:0;
+    animation:riseIn .9s var(--ease) .7s forwards;
+  }
+
+  .btn{
+    font-family:var(--font-mono);
+    font-size:13px;
+    letter-spacing:0.08em;
+    padding:15px 26px;
+    border-radius:2px;
+    display:inline-flex;
+    align-items:center;
+    gap:10px;
+    transition:all .3s var(--ease);
+    border:1px solid var(--border-strong);
+  }
+  .btn-primary{
+    background:var(--accent);
+    color:var(--bg);
+    border-color:var(--accent);
+  }
+  .btn-primary:hover{ background:var(--accent-strong); border-color:var(--accent-strong); transform:translateY(-2px); }
+  .btn-ghost{
+    color:var(--text);
+    background:transparent;
+  }
+  .btn-ghost:hover{ border-color:var(--accent-line); color:var(--accent-strong); transform:translateY(-2px); }
+
+  .hero-stats{
+    margin-top:88px;
+    display:grid;
+    grid-template-columns:repeat(3, 1fr);
+    max-width:640px;
+    border-top:1px solid var(--border);
+    padding-top:28px;
+    opacity:0;
+    animation:riseIn .9s var(--ease) .85s forwards;
+  }
+  .hero-stat{ padding-right:20px; }
+  .hero-stat .num{
+    font-family:var(--font-display);
+    font-size:clamp(26px,3.4vw,36px);
+    font-weight:600;
+    color:var(--accent);
+  }
+  .hero-stat .label{
+    font-family:var(--font-mono);
+    font-size:11px;
+    letter-spacing:0.06em;
+    text-transform:uppercase;
+    color:var(--text-faint);
+    margin-top:6px;
+    display:block;
+  }
+
+  @keyframes riseIn{
+    from{ opacity:0; transform:translateY(18px); }
+    to{ opacity:1; transform:translateY(0); }
+  }
+
+  .scroll-cue{
+    position:absolute;
+    bottom:36px; left:32px;
+    font-family:var(--font-mono);
+    font-size:11px;
+    letter-spacing:0.1em;
+    color:var(--text-faint);
+    display:flex;
+    align-items:center;
+    gap:10px;
+    z-index:2;
+  }
+  .scroll-cue .line{
+    width:1px; height:34px;
+    background:var(--text-faint);
+    position:relative;
+    overflow:hidden;
+  }
+  .scroll-cue .line::after{
+    content:'';
+    position:absolute; top:-100%; left:0;
+    width:100%; height:100%;
+    background:var(--accent);
+    animation:scrollcue 2.2s ease-in-out infinite;
+  }
+  @keyframes scrollcue{
+    0%{ top:-100%; } 60%{ top:100%; } 100%{ top:100%; }
+  }
+
+  /* ---------- reveal utility ---------- */
+  .reveal{
+    opacity:0;
+    transform:translateY(24px);
+    transition:opacity .8s var(--ease), transform .8s var(--ease);
+  }
+  .reveal.in{ opacity:1; transform:translateY(0); }
+  .reveal-delay-1{ transition-delay:.08s; }
+  .reveal-delay-2{ transition-delay:.16s; }
+  .reveal-delay-3{ transition-delay:.24s; }
+  .reveal-delay-4{ transition-delay:.32s; }
+
+  /* ---------- ABOUT ---------- */
+  .about-grid{
+    display:grid;
+    grid-template-columns:1.1fr 0.9fr;
+    gap:64px;
+    align-items:start;
+  }
+  .about-text{
+    font-size:18px;
+    color:var(--text-muted);
+    line-height:1.75;
+    max-width:52ch;
+  }
+  .about-text strong{ color:var(--text); font-weight:500; }
+
+  .about-facts{
+    display:flex;
+    flex-direction:column;
+    gap:0;
+    border-top:1px solid var(--border);
+  }
+  .about-fact{
+    padding:20px 0;
+    border-bottom:1px solid var(--border);
+    display:flex;
+    justify-content:space-between;
+    gap:20px;
+  }
+  .about-fact .k{
+    font-family:var(--font-mono);
+    font-size:12px;
+    color:var(--text-faint);
+    letter-spacing:0.05em;
+    text-transform:uppercase;
+    white-space:nowrap;
+  }
+  .about-fact .v{
+    text-align:right;
+    font-size:14.5px;
+    color:var(--text);
+  }
+
+  /* ---------- EXPERTISE ---------- */
+  .expertise-grid{
+    display:grid;
+    grid-template-columns:repeat(2, 1fr);
+    gap:1px;
+    background:var(--border);
+    border:1px solid var(--border);
+  }
+  .expertise-card{
+    background:var(--bg);
+    padding:40px;
+    transition:background .3s var(--ease);
+  }
+  .expertise-card:hover{ background:var(--bg-elevated); }
+  .expertise-card .idx{
+    font-family:var(--font-mono);
+    font-size:12px;
+    color:var(--accent);
+    letter-spacing:0.1em;
+  }
+  .expertise-card h3{
+    font-size:22px;
+    margin-top:14px;
+    margin-bottom:22px;
+  }
+  .skill-row{
+    display:flex;
+    justify-content:space-between;
+    gap:16px;
+    padding:12px 0;
+    border-top:1px solid var(--border);
+    font-size:14px;
+  }
+  .skill-row:first-of-type{ border-top:none; }
+  .skill-row .name{ color:var(--text); }
+  .skill-row .level{
+    font-family:var(--font-mono);
+    font-size:11px;
+    color:var(--text-faint);
+    letter-spacing:0.03em;
+    text-align:right;
+    white-space:nowrap;
+  }
+  .expertise-app{
+    margin-top:22px;
+    padding-top:18px;
+    border-top:1px dashed var(--border-strong);
+    font-size:13.5px;
+    color:var(--text-muted);
+  }
+  .expertise-app b{ color:var(--accent); font-weight:500; }
+
+  /* ---------- PROJECTS / NETSHIELD ---------- */
+  .project-flagship{
+    border:1px solid var(--border-strong);
+    background:linear-gradient(180deg, var(--bg-elevated), var(--bg));
+    padding:56px;
+    position:relative;
+  }
+  .flagship-top{
+    display:flex;
+    justify-content:space-between;
+    align-items:flex-start;
+    flex-wrap:wrap;
+    gap:24px;
+    margin-bottom:40px;
+  }
+  .flagship-tag{
+    font-family:var(--font-mono);
+    font-size:11px;
+    letter-spacing:0.1em;
+    color:var(--accent);
+    border:1px solid var(--accent-line);
+    padding:6px 12px;
+    border-radius:20px;
+    text-transform:uppercase;
+  }
+  .flagship-title{
+    font-size:clamp(30px,4vw,46px);
+    margin-top:16px;
+  }
+  .flagship-meta{
+    font-family:var(--font-mono);
+    font-size:12.5px;
+    color:var(--text-muted);
+    margin-top:12px;
+  }
+
+  .flagship-stats{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:1px;
+    background:var(--border);
+    border:1px solid var(--border);
+    margin-bottom:56px;
+  }
+  .flagship-stat{
+    background:var(--bg);
+    padding:28px 24px;
+    text-align:left;
+  }
+  .flagship-stat .num{
+    font-family:var(--font-display);
+    font-size:clamp(30px,4vw,44px);
+    color:var(--accent);
+    font-weight:600;
+  }
+  .flagship-stat .label{
+    font-family:var(--font-mono);
+    font-size:11.5px;
+    letter-spacing:0.04em;
+    color:var(--text-faint);
+    margin-top:6px;
+    text-transform:uppercase;
+  }
+
+  /* flow diagram */
+  .flow-wrap{ margin-bottom:56px; }
+  .flow-caption{
+    font-family:var(--font-mono);
+    font-size:11.5px;
+    color:var(--text-faint);
+    margin-bottom:20px;
+    letter-spacing:0.04em;
+  }
+  .flow-scroll{ overflow-x:auto; -webkit-overflow-scrolling:touch; margin:0 -4px; padding:0 4px; }
+  .flow-svg{ width:100%; min-width:640px; height:auto; display:block; }
+  .flow-node-label{
+    font-family:var(--font-mono);
+    font-size:12px;
+    fill:var(--text-muted);
+    letter-spacing:0.04em;
+  }
+  .flow-node-circle{
+    fill:var(--bg);
+    stroke:var(--border-strong);
+    stroke-width:1.5;
+  }
+  .flow-line{
+    stroke:var(--border-strong);
+    stroke-width:1.5;
+  }
+  .flow-node.active .flow-node-circle{
+    stroke:var(--accent);
+  }
+  .flow-node.active .flow-node-label{ fill:var(--accent-strong); }
+
+  .flow-story{
+    display:grid;
+    grid-template-columns:repeat(auto-fit, minmax(140px,1fr));
+    gap:24px;
+    margin-top:8px;
+  }
+  .flow-story-item{ font-size:13px; color:var(--text-muted); }
+  .flow-story-item .k{
+    font-family:var(--font-mono);
+    font-size:11px;
+    color:var(--accent);
+    letter-spacing:0.06em;
+    display:block;
+    margin-bottom:8px;
+  }
+
+  .flagship-detail{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:48px;
+    margin-top:56px;
+    padding-top:48px;
+    border-top:1px solid var(--border);
+  }
+  .flagship-detail h4{
+    font-family:var(--font-mono);
+    font-size:12px;
+    letter-spacing:0.08em;
+    color:var(--text-faint);
+    text-transform:uppercase;
+    margin-bottom:14px;
+  }
+  .flagship-detail p, .flagship-detail li{
+    font-size:14.5px;
+    color:var(--text-muted);
+    line-height:1.7;
+  }
+  .flagship-detail ul li{ margin-bottom:6px; padding-left:16px; position:relative; }
+  .flagship-detail ul li::before{
+    content:'—';
+    position:absolute; left:0; color:var(--accent);
+  }
+  .tag-row{ display:flex; flex-wrap:wrap; gap:8px; margin-top:24px; }
+  .tag{
+    font-family:var(--font-mono);
+    font-size:11.5px;
+    color:var(--text-muted);
+    border:1px solid var(--border-strong);
+    padding:6px 12px;
+    border-radius:20px;
+  }
+
+  .projects-secondary{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:1px;
+    background:var(--border);
+    border:1px solid var(--border);
+    margin-top:1px;
+  }
+  .project-card{
+    background:var(--bg);
+    padding:36px;
+  }
+  .project-card .cat{
+    font-family:var(--font-mono);
+    font-size:11px;
+    color:var(--accent);
+    letter-spacing:0.08em;
+    text-transform:uppercase;
+  }
+  .project-card h4{
+    font-size:19px;
+    margin:12px 0 16px;
+  }
+  .project-card .field{ margin-bottom:12px; font-size:14px; color:var(--text-muted); }
+  .project-card .field b{ color:var(--text); font-weight:500; display:block; font-family:var(--font-mono); font-size:11px; letter-spacing:0.05em; color:var(--text-faint); margin-bottom:4px; text-transform:uppercase;}
+
+  /* ---------- EXPERIENCE ---------- */
+  .timeline{ position:relative; }
+  .timeline::before{
+    content:'';
+    position:absolute;
+    left:0; top:8px; bottom:8px;
+    width:1px;
+    background:var(--border-strong);
+  }
+  .tl-item{
+    position:relative;
+    padding-left:40px;
+    padding-bottom:56px;
+  }
+  .tl-item:last-child{ padding-bottom:0; }
+  .tl-dot{
+    position:absolute;
+    left:-4px; top:6px;
+    width:9px; height:9px;
+    border-radius:50%;
+    background:var(--bg);
+    border:1.5px solid var(--accent);
+  }
+  .tl-date{
+    font-family:var(--font-mono);
+    font-size:12px;
+    color:var(--accent);
+    letter-spacing:0.05em;
+  }
+  .tl-org{
+    font-size:22px;
+    font-family:var(--font-display);
+    font-weight:600;
+    margin-top:10px;
+  }
+  .tl-role{
+    font-family:var(--font-mono);
+    font-size:13px;
+    color:var(--text-muted);
+    margin-top:6px;
+  }
+  .tl-body{
+    margin-top:18px;
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:24px;
+    max-width:820px;
+  }
+  .tl-body h5{
+    font-family:var(--font-mono);
+    font-size:11px;
+    letter-spacing:0.06em;
+    text-transform:uppercase;
+    color:var(--text-faint);
+    margin-bottom:8px;
+  }
+  .tl-body p{ font-size:14.5px; color:var(--text-muted); line-height:1.65; }
+
+  /* ---------- EDUCATION ---------- */
+  .edu-list{ display:flex; flex-direction:column; }
+  .edu-item{
+    display:grid;
+    grid-template-columns:120px 1fr auto;
+    gap:24px;
+    align-items:baseline;
+    padding:28px 0;
+    border-bottom:1px solid var(--border);
+  }
+  .edu-item:first-child{ border-top:1px solid var(--border); }
+  .edu-date{ font-family:var(--font-mono); font-size:13px; color:var(--accent); }
+  .edu-name{ font-size:19px; font-family:var(--font-display); font-weight:600; }
+  .edu-school{ font-size:14px; color:var(--text-muted); margin-top:6px; }
+  .edu-mention{
+    font-family:var(--font-mono);
+    font-size:12px;
+    color:var(--text-faint);
+    text-align:right;
+    white-space:nowrap;
+  }
+
+  /* ---------- CERTIFICATIONS ---------- */
+  .cert-grid{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:1px;
+    background:var(--border);
+    border:1px solid var(--border);
+  }
+  .cert-card{
+    background:var(--bg);
+    padding:32px 36px;
+  }
+  .cert-card .org{
+    font-family:var(--font-mono);
+    font-size:11px;
+    color:var(--accent);
+    letter-spacing:0.08em;
+    text-transform:uppercase;
+  }
+  .cert-card h4{ font-size:19px; margin-top:10px; }
+  .cert-card .detail{ font-size:13.5px; color:var(--text-muted); margin-top:10px; }
+
+  /* ---------- LAB ---------- */
+  .lab-wrap{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:64px;
+  }
+  .lab-manifest{
+    font-family:var(--font-mono);
+    font-size:13px;
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:2px 24px;
+    color:var(--text-muted);
+  }
+  .lab-manifest div{
+    padding:9px 0;
+    border-bottom:1px solid var(--border);
+    display:flex;
+    justify-content:space-between;
+  }
+  .lab-manifest div span{ color:var(--text-faint); font-size:11px; }
+
+  /* ---------- CONTACT ---------- */
+  .contact-statement{
+    font-family:var(--font-display);
+    font-size:clamp(28px,4.4vw,52px);
+    font-weight:600;
+    line-height:1.25;
+    max-width:820px;
+  }
+  .contact-statement span{ color:var(--accent); }
+  .contact-grid{
+    margin-top:64px;
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:1px;
+    background:var(--border);
+    border:1px solid var(--border);
+  }
+  .contact-card{
+    background:var(--bg);
+    padding:32px;
+    transition:background .3s var(--ease);
+  }
+  .contact-card:hover{ background:var(--bg-elevated); }
+  .contact-card .k{
+    font-family:var(--font-mono);
+    font-size:11px;
+    color:var(--text-faint);
+    letter-spacing:0.08em;
+    text-transform:uppercase;
+  }
+  .contact-card .v{
+    font-size:17px;
+    margin-top:12px;
+    color:var(--text);
+  }
+  .contact-cta{
+    margin-top:56px;
+  }
+
+  footer{
+    padding:40px 0;
+    border-top:1px solid var(--border);
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    flex-wrap:wrap;
+    gap:12px;
+  }
+  footer .f-left, footer .f-right{
+    font-family:var(--font-mono);
+    font-size:11.5px;
+    color:var(--text-faint);
+    letter-spacing:0.04em;
+  }
+
+  /* ---------- RESPONSIVE ---------- */
+  @media (max-width:980px){
+    nav.desktop-nav, header .nav-cta{ display:none; }
+    .burger{ display:flex; }
+    .about-grid, .lab-wrap, .flagship-detail{ grid-template-columns:1fr; }
+    .expertise-grid, .projects-secondary, .cert-grid{ grid-template-columns:1fr; }
+    .flagship-stats{ grid-template-columns:1fr; }
+    .hero-stats{ grid-template-columns:repeat(3,1fr); }
+    .tl-body{ grid-template-columns:1fr; }
+    .contact-grid{ grid-template-columns:1fr; }
+    section{ padding:88px 0; }
+    .project-flagship{ padding:32px 24px; }
+    .edu-item{ grid-template-columns:1fr; gap:6px; }
+    .edu-mention{ text-align:left; }
+  }
+  @media (max-width:560px){
+    .wrap{ padding:0 20px; }
+    .hero{ padding-top:120px; }
+    .hero-stats{ grid-template-columns:1fr 1fr 1fr; gap:12px 8px; }
+    .section-head{ flex-direction:column; align-items:flex-start; gap:12px; margin-bottom:40px; }
+  }
+</style>
+</head>
+<body>
+
+<header id="siteHeader">
+  <a href="#top" class="logo"><span class="dot"></span>GBEHOLO&nbsp;WILSON</a>
+  <nav class="desktop-nav" id="desktopNav">
+    <a href="#about" data-nav>01 — À PROPOS</a>
+    <a href="#expertise" data-nav>02 — EXPERTISE</a>
+    <a href="#projects" data-nav>03 — PROJETS</a>
+    <a href="#experience" data-nav>04 — EXPÉRIENCE</a>
+    <a href="#education" data-nav>05 — FORMATIONS</a>
+    <a href="#certifications" data-nav>06 — CERTIFICATIONS</a>
+    <a href="#contact" data-nav>07 — CONTACT</a>
+  </nav>
+  <a href="#contact" class="nav-cta">ME CONTACTER</a>
+  <button class="burger" id="burgerBtn" aria-label="Ouvrir le menu"><span></span><span></span><span></span></button>
+</header>
+
+<div class="mobile-menu" id="mobileMenu">
+  <a href="#about" data-nav-mobile>À propos <span>01</span></a>
+  <a href="#expertise" data-nav-mobile>Expertise <span>02</span></a>
+  <a href="#projects" data-nav-mobile>Projets <span>03</span></a>
+  <a href="#experience" data-nav-mobile>Expérience <span>04</span></a>
+  <a href="#education" data-nav-mobile>Formations <span>05</span></a>
+  <a href="#certifications" data-nav-mobile>Certifications <span>06</span></a>
+  <a href="#contact" data-nav-mobile>Contact <span>07</span></a>
+</div>
+
+<main id="top">
+
+  <!-- ================= HERO ================= -->
+  <section class="hero" style="border-top:none;">
+    <div class="hero-grid" aria-hidden="true"></div>
+    <div class="hero-glow" aria-hidden="true"></div>
+    <div class="wrap hero-inner">
+      <div class="hero-eyebrow">CYBERSÉCURITÉ · RÉSEAUX &amp; SYSTÈMES · DATA ANALYTICS</div>
+      <h1>GBEHOLO<br><span class="accent">WILSON</span></h1>
+      <div class="hero-role">
+        <b>Diplômé en Sécurité des Systèmes et Réseaux Informatiques</b>
+        <span class="sep">·</span> Détection &amp; réponse aux incidents
+        <span class="sep">·</span> Data Analytics
+      </div>
+      <p class="hero-statement">Je conçois des systèmes qui détectent, analysent et isolent une menace — validés sur un réseau réel, pas en simulation.</p>
+      <div class="hero-ctas">
+        <a href="#projects" class="btn btn-primary">EXPLORER MON TRAVAIL →</a>
+        <a href="#contact" class="btn btn-ghost">ME CONTACTER</a>
+        <a href="cv/CV_GBEHOLO_Wilson_Cybersecurite.pdf" class="btn btn-ghost" download>MON CV ↓</a>
+      </div>
+      <div class="hero-stats">
+        <div class="hero-stat"><div class="num" data-count="98" data-suffix="%">0%</div><span class="label">Détection</span></div>
+        <div class="hero-stat"><div class="num" data-count="1.38" data-suffix="s" data-decimals="2">0s</div><span class="label">Réaction moyenne</span></div>
+        <div class="hero-stat"><div class="num" data-count="2.1" data-suffix="%" data-decimals="1">0%</div><span class="label">Faux positifs</span></div>
+      </div>
+    </div>
+    <div class="scroll-cue"><span>SCROLL</span><span class="line"></span></div>
+  </section>
+
+  <!-- ================= ABOUT ================= -->
+  <section id="about">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <div>
+          <span class="section-num">01 / 07</span>
+          <h2 class="section-title">À propos</h2>
+        </div>
+      </div>
+      <div class="about-grid">
+        <p class="about-text reveal">
+          Diplômé d'une <strong>Licence Professionnelle en Sécurité des Systèmes et Réseaux Informatiques</strong> (Les Cours Sonou, mention Bien), je conçois des systèmes de détection et de réponse aux incidents validés en conditions réelles. Mon parcours associe trois stages — cybersécurité, développement web, maintenance systèmes — à une formation complémentaire de <strong>288 heures en Data Science &amp; Machine Learning</strong> (LESCAL, mention Très Bien). Cette double compétence me permet de comprendre un incident depuis le paquet réseau jusqu'à la donnée qu'il révèle. Auteur de <strong>NetShield SDN</strong>, système de détection et d'isolation automatique déployé sur le réseau du Ministère du Travail, je recherche un stage de 3 à 6 mois pour mettre cette rigueur au service d'une équipe technique exigeante.
+        </p>
+        <div class="about-facts reveal reveal-delay-1">
+          <div class="about-fact"><span class="k">Localisation</span><span class="v">Abomey-Calavi, Bénin</span></div>
+          <div class="about-fact"><span class="k">Diplôme</span><span class="v">Licence Pro. Sécurité des Systèmes &amp; Réseaux</span></div>
+          <div class="about-fact"><span class="k">Mention</span><span class="v">Bien</span></div>
+          <div class="about-fact"><span class="k">Recherche</span><span class="v">Stage 3 à 6 mois</span></div>
+          <div class="about-fact"><span class="k">Langues</span><span class="v">Français (C1) · Anglais (B1)</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= EXPERTISE ================= -->
+  <section id="expertise">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <div>
+          <span class="section-num">02 / 07</span>
+          <h2 class="section-title">Expertise</h2>
+        </div>
+      </div>
+    </div>
+    <div class="wrap" style="padding:0;">
+      <div class="expertise-grid reveal">
+        <div class="expertise-card">
+          <span class="idx">01</span>
+          <h3>Cybersécurité</h3>
+          <div class="skill-row"><span class="name">Détection d'incidents (Suricata IDS/IPS)</span><span class="level">MAÎTRISE OPÉRATIONNELLE</span></div>
+          <div class="skill-row"><span class="name">Analyse de vulnérabilités (Nmap, Wireshark, Burp Suite)</span><span class="level">MAÎTRISE OPÉRATIONNELLE</span></div>
+          <div class="skill-row"><span class="name">Réponse à incident &amp; isolation réseau</span><span class="level">BONNE MAÎTRISE</span></div>
+          <div class="skill-row"><span class="name">Sécurité applicative (hashage, anti-XSS)</span><span class="level">BONNE MAÎTRISE</span></div>
+          <div class="skill-row"><span class="name">Metasploit, Kali Linux</span><span class="level">CONNAISSANCES</span></div>
+          <div class="expertise-app">Application concrète — <b>NetShield SDN</b>, détection et isolation automatique de machines compromises.</div>
+        </div>
+
+        <div class="expertise-card">
+          <span class="idx">02</span>
+          <h3>Réseaux &amp; Systèmes</h3>
+          <div class="skill-row"><span class="name">Administration réseau (VLAN, DHCP/DNS)</span><span class="level">MAÎTRISE OPÉRATIONNELLE</span></div>
+          <div class="skill-row"><span class="name">Architecture SDN (Mininet, Open vSwitch)</span><span class="level">MAÎTRISE OPÉRATIONNELLE</span></div>
+          <div class="skill-row"><span class="name">Cisco Packet Tracer</span><span class="level">MAÎTRISE OPÉRATIONNELLE</span></div>
+          <div class="skill-row"><span class="name">Linux (Ubuntu/Debian) &amp; Git</span><span class="level">BONNE MAÎTRISE</span></div>
+          <div class="skill-row"><span class="name">Virtualisation</span><span class="level">CONNAISSANCES</span></div>
+          <div class="expertise-app">Application concrète — réseau d'entreprise sécurisé Cisco : VLAN, filtrage DNS, tests de résistance.</div>
+        </div>
+
+        <div class="expertise-card">
+          <span class="idx">03</span>
+          <h3>Data Analytics</h3>
+          <div class="skill-row"><span class="name">Analyse de données (Python, Pandas)</span><span class="level">MAÎTRISE OPÉRATIONNELLE</span></div>
+          <div class="skill-row"><span class="name">SQL &amp; traitement de données</span><span class="level">MAÎTRISE OPÉRATIONNELLE</span></div>
+          <div class="skill-row"><span class="name">Visualisation &amp; tableaux de bord (Plotly)</span><span class="level">MAÎTRISE OPÉRATIONNELLE</span></div>
+          <div class="skill-row"><span class="name">Excel avancé</span><span class="level">BONNE MAÎTRISE</span></div>
+          <div class="skill-row"><span class="name">Machine Learning supervisé / non supervisé</span><span class="level">CONNAISSANCES</span></div>
+          <div class="expertise-app">Application concrète — nettoyage, visualisation et modélisation de données (formation LESCAL, 288h).</div>
+        </div>
+
+        <div class="expertise-card">
+          <span class="idx">04</span>
+          <h3>Automatisation &amp; Développement</h3>
+          <div class="skill-row"><span class="name">Python (scripting, automatisation)</span><span class="level">MAÎTRISE OPÉRATIONNELLE</span></div>
+          <div class="skill-row"><span class="name">Développement d'applications (Flask, PHP/MySQL)</span><span class="level">MAÎTRISE OPÉRATIONNELLE</span></div>
+          <div class="skill-row"><span class="name">Java, C++</span><span class="level">BONNE MAÎTRISE</span></div>
+          <div class="skill-row"><span class="name">Bash</span><span class="level">CONNAISSANCES</span></div>
+          <div class="expertise-app">Application concrète — scanner de vulnérabilités web (Python) et application RH en production (PHP/MySQL).</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= PROJECTS ================= -->
+  <section id="projects">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <div>
+          <span class="section-num">03 / 07</span>
+          <h2 class="section-title">Projets</h2>
+        </div>
+      </div>
+
+      <div class="project-flagship reveal">
+        <div class="flagship-top">
+          <div>
+            <span class="flagship-tag">Projet phare</span>
+            <h3 class="flagship-title">NetShield SDN</h3>
+            <div class="flagship-meta">Stage Cybersécurité &amp; SDN — DSI, Ministère du Travail (MTFP), Cotonou · Fév.–Avr. 2025</div>
+          </div>
+        </div>
+
+        <div class="flagship-stats">
+          <div class="flagship-stat"><div class="num" data-count="98" data-suffix="%">0%</div><div class="label">Détection d'incidents</div></div>
+          <div class="flagship-stat"><div class="num" data-count="1.38" data-suffix="s" data-decimals="2">0s</div><div class="label">Temps de réaction moyen</div></div>
+          <div class="flagship-stat"><div class="num" data-count="2.1" data-suffix="%" data-decimals="1">0%</div><div class="label">Faux positifs (100 tests)</div></div>
+        </div>
+
+        <div class="flow-wrap">
+          <div class="flow-caption">Schéma illustratif du fonctionnement de NetShield — de la capture du trafic à l'isolation de la machine compromise</div>
+          <div class="flow-scroll">
+            <svg class="flow-svg" id="flowSvg" viewBox="0 0 1080 150" xmlns="http://www.w3.org/2000/svg">
+              <line class="flow-line" x1="70" y1="40" x2="1010" y2="40"></line>
+              <!-- nodes will be inserted by JS -->
+            </svg>
+          </div>
+          <div class="flow-story">
+            <div class="flow-story-item"><span class="k">TRAFIC</span>Capture continue du trafic réseau sur l'infrastructure réelle.</div>
+            <div class="flow-story-item"><span class="k">SURICATA</span>Suricata 7.0 analyse le trafic et identifie les signatures d'attaque.</div>
+            <div class="flow-story-item"><span class="k">ALERTE</span>Une alerte est levée pour chaque comportement suspect détecté.</div>
+            <div class="flow-story-item"><span class="k">ANALYSE</span>Qualification automatique pour distinguer menace réelle et faux positif.</div>
+            <div class="flow-story-item"><span class="k">RÉPONSE</span>Déclenchement d'une réponse automatisée, en 1,38 s en moyenne.</div>
+            <div class="flow-story-item"><span class="k">ISOLATION</span>6 stratégies d'isolation appliquées via le switch physique.</div>
+          </div>
+        </div>
+
+        <div class="flagship-detail">
+          <div>
+            <h4>Problème</h4>
+            <p>Sur un réseau d'entreprise, une machine compromise doit être détectée et neutralisée avant qu'elle ne menace la continuité de service.</p>
+            <h4 style="margin-top:28px;">Architecture</h4>
+            <p>Infrastructure réelle bâtie autour d'un switch TP-Link TL600G-28PS, supervisée par Suricata 7.0 et pilotée par une application Python &amp; Flask.</p>
+          </div>
+          <div>
+            <h4>Résultats</h4>
+            <ul>
+              <li>98 % de détection sur 100 scénarios testés</li>
+              <li>4 types d'attaques réelles détectées : DDoS, brute force, ransomware, C2</li>
+              <li>6 stratégies d'isolation différenciées via switch physique</li>
+              <li>Continuité d'activité de la victime assurée en moins de 15 s (DHCP + Samba)</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="tag-row">
+          <span class="tag">SDN</span><span class="tag">Suricata 7.0</span><span class="tag">Python</span><span class="tag">Flask</span><span class="tag">DHCP / Samba</span>
+        </div>
+      </div>
+
+      <div class="projects-secondary reveal reveal-delay-1">
+        <div class="project-card">
+          <span class="cat">Réseaux</span>
+          <h4>Réseau d'entreprise sécurisé Cisco</h4>
+          <div class="field"><b>PROBLÈME</b>Sécuriser un réseau d'entreprise contre les attaques courantes.</div>
+          <div class="field"><b>SOLUTION</b>Segmentation VLAN, filtrage DNS, tests de résistance aux attaques simulées.</div>
+          <div class="field"><b>TECHNOLOGIES</b>Cisco Packet Tracer · VLAN · DNS</div>
+          <div class="field"><b>RÉSULTAT</b>Architecture réseau segmentée et résiliente, validée par des tests simulés.</div>
+        </div>
+        <div class="project-card">
+          <span class="cat">Sécurité applicative</span>
+          <h4>Scanner de vulnérabilités web</h4>
+          <div class="field"><b>PROBLÈME</b>Détecter les failles courantes d'une application web (XSS, configuration).</div>
+          <div class="field"><b>SOLUTION</b>Script Python d'analyse automatisée avec génération de rapports.</div>
+          <div class="field"><b>TECHNOLOGIES</b>Python</div>
+          <div class="field"><b>RÉSULTAT</b>Détection automatisée des failles XSS et de configuration, rapport généré sans intervention manuelle.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= LAB ================= -->
+  <section id="lab">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <div>
+          <span class="section-num">LAB</span>
+          <h2 class="section-title">Environnement technique</h2>
+        </div>
+      </div>
+      <div class="lab-wrap reveal">
+        <div>
+          <p class="about-text" style="font-size:15px;">Outils et environnements utilisés en conditions réelles — du diagnostic réseau à l'analyse de données.</p>
+        </div>
+        <div class="lab-manifest">
+          <div>Suricata <span>7.0</span></div>
+          <div>SDN <span>Mininet / OVS</span></div>
+          <div>Python <span>Scripting</span></div>
+          <div>Flask <span>Backend</span></div>
+          <div>Nmap <span>Scan</span></div>
+          <div>Wireshark <span>Analyse</span></div>
+          <div>Burp Suite <span>Web</span></div>
+          <div>Metasploit <span>Notions</span></div>
+          <div>Kali Linux <span>OS</span></div>
+          <div>Cisco Packet Tracer <span>Réseaux</span></div>
+          <div>VLAN / DHCP / DNS <span>Admin</span></div>
+          <div>SQL <span>Data</span></div>
+          <div>Pandas <span>Data</span></div>
+          <div>Plotly <span>Viz</span></div>
+          <div>Git <span>Versioning</span></div>
+          <div>Linux (Ubuntu/Debian) <span>OS</span></div>
+          <div>PHP / MySQL <span>Web</span></div>
+          <div>Java / C++ <span>Dév.</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= EXPERIENCE ================= -->
+  <section id="experience">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <div>
+          <span class="section-num">04 / 07</span>
+          <h2 class="section-title">Expérience</h2>
+        </div>
+      </div>
+
+      <div class="timeline reveal">
+        <div class="tl-item">
+          <span class="tl-dot"></span>
+          <span class="tl-date">FÉV. — AVR. 2025</span>
+          <h3 class="tl-org">DSI · Ministère du Travail (MTFP), Cotonou</h3>
+          <div class="tl-role">Stagiaire Cybersécurité &amp; SDN</div>
+          <div class="tl-body">
+            <div><h5>Missions</h5><p>Conception de NetShield SDN pour détecter et isoler automatiquement les machines compromises (Suricata, Python, Flask).</p></div>
+            <div><h5>Réalisations</h5><p>98 % de détection, temps de réaction moyen ramené à 1,38 s, validé sur une infrastructure réseau réelle.</p></div>
+          </div>
+        </div>
+
+        <div class="tl-item">
+          <span class="tl-dot"></span>
+          <span class="tl-date">2024 · 3 MOIS</span>
+          <h3 class="tl-org">Blue Life Tech</h3>
+          <div class="tl-role">Stagiaire Développement Web</div>
+          <div class="tl-body">
+            <div><h5>Missions</h5><p>Développement d'une application RH en PHP/MySQL (CRUD, hashage des mots de passe, protection XSS/injections).</p></div>
+            <div><h5>Réalisations</h5><p>6 sites livrés en production.</p></div>
+          </div>
+        </div>
+
+        <div class="tl-item">
+          <span class="tl-dot"></span>
+          <span class="tl-date">JUIN — SEPT. 2023</span>
+          <h3 class="tl-org">Elite Computer, Abomey-Calavi</h3>
+          <div class="tl-role">Stagiaire Maintenance &amp; Développement C</div>
+          <div class="tl-body">
+            <div><h5>Missions</h5><p>Diagnostic, réparation et installation de systèmes (Windows, Kali Linux) ; développement d'applications en C.</p></div>
+            <div><h5>Réalisations</h5><p>4 applications développées, parc informatique remis en état.</p></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= EDUCATION ================= -->
+  <section id="education">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <div>
+          <span class="section-num">05 / 07</span>
+          <h2 class="section-title">Formations</h2>
+        </div>
+      </div>
+      <div class="edu-list reveal">
+        <div class="edu-item">
+          <span class="edu-date">2023 — 2026</span>
+          <div>
+            <div class="edu-name">Licence Professionnelle — Sécurité des Systèmes &amp; Réseaux Informatiques</div>
+            <div class="edu-school">Les Cours Sonou, Abomey-Calavi</div>
+          </div>
+          <span class="edu-mention">Diplômé — Mention Bien</span>
+        </div>
+        <div class="edu-item">
+          <span class="edu-date">2020 — 2023</span>
+          <div>
+            <div class="edu-name">Baccalauréat Scientifique, Série C</div>
+            <div class="edu-school">Lycée Houffon, Abomey</div>
+          </div>
+          <span class="edu-mention">Mention Assez Bien</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= CERTIFICATIONS ================= -->
+  <section id="certifications">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <div>
+          <span class="section-num">06 / 07</span>
+          <h2 class="section-title">Certifications &amp; formations</h2>
+        </div>
+      </div>
+      <div class="cert-grid reveal">
+        <div class="cert-card">
+          <span class="org">LESCAL</span>
+          <h4>Data Science, traitement &amp; Machine Learning</h4>
+          <div class="detail">288 heures — Statistiques avancées, nettoyage &amp; visualisation de données, Machine Learning supervisé/non supervisé (Python).<br>Résultat : Très Bien — 16,5/20</div>
+        </div>
+        <div class="cert-card">
+          <span class="org">ASIN</span>
+          <h4>Initiation à la Cybersécurité</h4>
+          <div class="detail">Formation professionnelle.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= CONTACT ================= -->
+  <section id="contact">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <div>
+          <span class="section-num">07 / 07</span>
+          <h2 class="section-title">Contact</h2>
+        </div>
+      </div>
+      <p class="contact-statement reveal">
+        Un environnement à sécuriser.<br>
+        Un système à comprendre.<br>
+        <span>Un problème à résoudre.</span>
+      </p>
+
+      <div class="contact-grid reveal reveal-delay-1">
+        <a class="contact-card" href="mailto:gbeholowilson0@gmail.com">
+          <span class="k">Email</span>
+          <div class="v">gbeholowilson0@gmail.com</div>
+        </a>
+        <a class="contact-card" href="tel:+22901464585 58">
+          <span class="k">Téléphone</span>
+          <div class="v">+229 01 46 45 85 58</div>
+        </a>
+        <div class="contact-card">
+          <span class="k">Localisation</span>
+          <div class="v">Abomey-Calavi, Bénin</div>
+        </div>
+      </div>
+
+      <div class="contact-cta reveal reveal-delay-2">
+        <a href="mailto:gbeholowilson0@gmail.com" class="btn btn-primary">PARLONS DE VOTRE BESOIN →</a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap" style="width:100%; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px;">
+    <span class="f-left">GBEHOLO WILSON — © 2026</span>
+    <span class="f-right">CYBERSÉCURITÉ · RÉSEAUX &amp; SYSTÈMES · DATA ANALYTICS</span>
+  </div>
+</footer>
+
+<script>
+(function(){
+  // Header scroll state
+  var header = document.getElementById('siteHeader');
+  window.addEventListener('scroll', function(){
+    if(window.scrollY > 20){ header.classList.add('scrolled'); }
+    else{ header.classList.remove('scrolled'); }
+  });
+
+  // Mobile menu
+  var burger = document.getElementById('burgerBtn');
+  var menu = document.getElementById('mobileMenu');
+  burger.addEventListener('click', function(){
+    burger.classList.toggle('open');
+    menu.classList.toggle('open');
+  });
+  document.querySelectorAll('[data-nav-mobile]').forEach(function(a){
+    a.addEventListener('click', function(){
+      burger.classList.remove('open');
+      menu.classList.remove('open');
+    });
+  });
+
+  // Active nav highlighting
+  var navLinks = document.querySelectorAll('[data-nav]');
+  var sections = ['about','expertise','projects','experience','education','certifications','contact'].map(function(id){
+    return document.getElementById(id);
+  });
+  function onScrollNav(){
+    var pos = window.scrollY + window.innerHeight * 0.35;
+    var current = null;
+    sections.forEach(function(sec){
+      if(sec && sec.offsetTop <= pos){ current = sec.id; }
+    });
+    navLinks.forEach(function(a){
+      a.classList.toggle('active', a.getAttribute('href') === '#' + current);
+    });
+  }
+  window.addEventListener('scroll', onScrollNav);
+  onScrollNav();
+
+  // Reveal on scroll
+  var reveals = document.querySelectorAll('.reveal');
+  var io = new IntersectionObserver(function(entries){
+    entries.forEach(function(entry){
+      if(entry.isIntersecting){
+        entry.target.classList.add('in');
+        io.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.12 });
+  reveals.forEach(function(el){ io.observe(el); });
+
+  // Counters
+  function animateCounter(el){
+    var target = parseFloat(el.getAttribute('data-count'));
+    var suffix = el.getAttribute('data-suffix') || '';
+    var decimals = parseInt(el.getAttribute('data-decimals') || '0', 10);
+    var duration = 1400;
+    var start = null;
+    function step(ts){
+      if(!start) start = ts;
+      var progress = Math.min((ts - start) / duration, 1);
+      var eased = 1 - Math.pow(1 - progress, 3);
+      var val = target * eased;
+      el.textContent = val.toFixed(decimals) + suffix;
+      if(progress < 1){ requestAnimationFrame(step); }
+      else{ el.textContent = target.toFixed(decimals) + suffix; }
+    }
+    requestAnimationFrame(step);
+  }
+  var counters = document.querySelectorAll('[data-count]');
+  var cio = new IntersectionObserver(function(entries){
+    entries.forEach(function(entry){
+      if(entry.isIntersecting){
+        animateCounter(entry.target);
+        cio.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.4 });
+  counters.forEach(function(el){ cio.observe(el); });
+
+  // Flow diagram build
+  var svg = document.getElementById('flowSvg');
+  if(svg){
+    var labels = ['TRAFIC','SURICATA','ALERTE','ANALYSE','RÉPONSE','ISOLATION'];
+    var n = labels.length;
+    var xStart = 70, xEnd = 1010;
+    var y = 40;
+    var ns = 'http://www.w3.org/2000/svg';
+    labels.forEach(function(label, i){
+      var x = xStart + (xEnd - xStart) * (i/(n-1));
+      var g = document.createElementNS(ns,'g');
+      g.setAttribute('class','flow-node');
+      g.setAttribute('data-i', i);
+
+      var circle = document.createElementNS(ns,'circle');
+      circle.setAttribute('cx', x); circle.setAttribute('cy', y); circle.setAttribute('r', 8);
+      circle.setAttribute('class','flow-node-circle');
+      g.appendChild(circle);
+
+      var text = document.createElementNS(ns,'text');
+      text.setAttribute('x', x); text.setAttribute('y', y + 34);
+      text.setAttribute('text-anchor','middle');
+      text.setAttribute('class','flow-node-label');
+      text.textContent = label;
+      g.appendChild(text);
+
+      svg.appendChild(g);
+    });
+
+    // pulse dot
+    var pulse = document.createElementNS(ns,'circle');
+    pulse.setAttribute('r', 4);
+    pulse.setAttribute('cy', y);
+    pulse.setAttribute('cx', xStart);
+    pulse.setAttribute('fill', 'var(--accent)');
+    svg.appendChild(pulse);
+
+    var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var nodes = svg.querySelectorAll('.flow-node');
+
+    function runPulse(){
+      if(reduceMotion) return;
+      var duration = 3200;
+      var startTime = null;
+      nodes.forEach(function(nd){ nd.classList.remove('active'); });
+      function frame(ts){
+        if(!startTime) startTime = ts;
+        var progress = ((ts - startTime) / duration) % 1;
+        var x = xStart + (xEnd - xStart) * progress;
+        pulse.setAttribute('cx', x);
+        var activeIdx = Math.floor(progress * n);
+        nodes.forEach(function(nd, i){
+          nd.classList.toggle('active', i <= activeIdx);
+        });
+        requestAnimationFrame(frame);
+      }
+      requestAnimationFrame(frame);
+    }
+
+    var flowIo = new IntersectionObserver(function(entries){
+      entries.forEach(function(entry){
+        if(entry.isIntersecting){
+          runPulse();
+          flowIo.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.3 });
+    flowIo.observe(svg);
+  }
+})();
+</script>
+
+</body>
+</html>
